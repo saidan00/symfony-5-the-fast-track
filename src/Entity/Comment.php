@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
-class Comment {
+class Comment
+{
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -20,16 +22,20 @@ class Comment {
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank]
     private $author;
 
     /**
      * @ORM\Column(type="text")
      */
+    #[Assert\NotBlank]
     private $text;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private $email;
 
     /**
@@ -48,49 +54,59 @@ class Comment {
      */
     private $photoFilename;
 
-    public function __toString(): string {
+    public function __toString(): string
+    {
         return (string) $this->getEmail();
     }
 
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getAuthor(): ?string {
+    public function getAuthor(): ?string
+    {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self {
+    public function setAuthor(string $author): self
+    {
         $this->author = $author;
 
         return $this;
     }
 
-    public function getText(): ?string {
+    public function getText(): ?string
+    {
         return $this->text;
     }
 
-    public function setText(string $text): self {
+    public function setText(string $text): self
+    {
         $this->text = $text;
 
         return $this;
     }
 
-    public function getEmail(): ?string {
+    public function getEmail(): ?string
+    {
         return $this->email;
     }
 
-    public function setEmail(string $email): self {
+    public function setEmail(string $email): self
+    {
         $this->email = $email;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface {
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self {
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
         $this->createdAt = $createdAt;
 
         return $this;
@@ -105,21 +121,25 @@ class Comment {
     }
 
 
-    public function getConference(): ?Conference {
+    public function getConference(): ?Conference
+    {
         return $this->conference;
     }
 
-    public function setConference(?Conference $conference): self {
+    public function setConference(?Conference $conference): self
+    {
         $this->conference = $conference;
 
         return $this;
     }
 
-    public function getPhotoFilename(): ?string {
+    public function getPhotoFilename(): ?string
+    {
         return $this->photoFilename;
     }
 
-    public function setPhotoFilename(?string $photoFilename): self {
+    public function setPhotoFilename(?string $photoFilename): self
+    {
         $this->photoFilename = $photoFilename;
 
         return $this;
