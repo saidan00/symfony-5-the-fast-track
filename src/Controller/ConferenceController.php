@@ -59,7 +59,7 @@ class ConferenceController extends AbstractController
             }
 
             $this->entityManager->persist($comment);
-            
+
             $context = [
                 'user_ip' => $request->getClientIp(),
                 'user_agent' => $request->headers->get('user-agent'),
@@ -83,7 +83,7 @@ class ConferenceController extends AbstractController
             'conference' => $conference,
             'comments' => $paginator,
             'previous' => $offset - CommentRepository::PAGINATOR_PER_PAGE,
-            'next' => min(count($paginator), $offset  CommentRepository::PAGINATOR_PER_PAGE),
+            'next' => min(count($paginator), $offset + CommentRepository::PAGINATOR_PER_PAGE),
             'comment_form' => $form->createView(),
         ]));
     }

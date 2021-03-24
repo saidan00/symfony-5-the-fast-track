@@ -14,14 +14,17 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * @method Comment[]    findAll()
  * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CommentRepository extends ServiceEntityRepository {
+class CommentRepository extends ServiceEntityRepository
+{
     public const PAGINATOR_PER_PAGE = 2;
 
-    public function __construct(ManagerRegistry $registry) {
+    public function __construct(ManagerRegistry $registry)
+    {
         parent::__construct($registry, Comment::class);
     }
 
-    public function getCommentPaginator(Conference $conference, int $offset): Paginator {
+    public function getCommentPaginator(Conference $conference, int $offset): Paginator
+    {
         $query = $this->createQueryBuilder('c')
             ->andWhere('c.conference = :conference')
             ->setParameter('conference', $conference)
