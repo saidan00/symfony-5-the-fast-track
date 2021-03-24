@@ -26,7 +26,9 @@ class ConferenceController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/', name: 'homepage')]
+    /**
+     * @Route("/", name="homepage")
+     */
     public function index(ConferenceRepository $conferenceRepository): Response
     {
         return new Response($this->twig->render('conference/index.html.twig', [
@@ -34,7 +36,9 @@ class ConferenceController extends AbstractController
         ]));
     }
 
-    #[Route('/conference/{slug}', name: 'conference')]
+    /**
+     * @Route("/conference/{slug}", name="conference")
+     */
     public function show(Request $request, Conference $conference, CommentRepository $commentRepository, string $photoDir): Response
     {
         $comment = new Comment();
